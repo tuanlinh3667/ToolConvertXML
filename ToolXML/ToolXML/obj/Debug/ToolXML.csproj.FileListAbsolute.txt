@@ -1,0 +1,9 @@
+D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML\ToolXML\obj\Debug\ToolXML.Form1.resources
+D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML\ToolXML\obj\Debug\ToolXML.Properties.Resources.resources
+D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML\ToolXML\obj\Debug\ToolXML.csproj.GenerateResource.cache
+D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML\ToolXML\obj\Debug\ToolXML.csproj.CoreCompileInputs.cache
+D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML\ToolXML\obj\Debug\ToolXML.exe
+D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML\ToolXML\obj\Debug\ToolXML.pdb
+D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML.exe.config
+D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML.exe
+D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML.pdb
