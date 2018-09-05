@@ -7,3 +7,4 @@ D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML\ToolXML\obj\Debug\ToolXML.
 D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML.exe.config
 D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML.exe
 D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML.pdb
+D:\STUDY\8. Unity\ToolExportXml\ToolExportXml\ToolXML\ToolXML\obj\Debug\ToolXML.csprojAssemblyReference.cache

@@ -36,6 +36,7 @@
 			this.button3 = new System.Windows.Forms.Button();
 			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
+			this.button4 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -61,7 +62,7 @@
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point(597, 397);
+			this.button2.Location = new System.Drawing.Point(516, 397);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(75, 23);
 			this.button2.TabIndex = 2;
@@ -114,11 +115,22 @@
 			this.label2.Text = "OUTPUT";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
+			// button4
+			// 
+			this.button4.Location = new System.Drawing.Point(597, 397);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(75, 23);
+			this.button4.TabIndex = 8;
+			this.button4.Text = "DELETE";
+			this.button4.UseVisualStyleBackColor = true;
+			this.button4.Click += new System.EventHandler(this.button4_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.button4);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.textBox2);
 			this.Controls.Add(this.button3);
@@ -130,6 +142,7 @@
 			this.Name = "Form1";
 			this.Text = "Form1";
 			this.Load += new System.EventHandler(this.Form1_Load);
+			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -146,6 +159,7 @@
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.TextBox textBox2;
 		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Button button4;
 	}
 }
 

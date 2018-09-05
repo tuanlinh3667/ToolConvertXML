@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<music>
+  <game>
+    <temp>
+      <tempo>12</tempo>
+    </temp>
+    <pos>
+      <time>0</time>
+      <node>12</node>
+      <long>212</long>
+    </pos>
+    <pos>
+      <time>0</time>
+      <node>32</node>
+      <long>32</long>
+    </pos>
+    <pos>
+      <time>0</time>
+      <node>23</node>
+      <long>13</long>
+    </pos>
+  </game>
+</music>
