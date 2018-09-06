@@ -378,108 +378,128 @@ namespace ToolXML
 				{
 					
 						//Trường hợp 1
-						if 
-						(
+						if (
 							elemList[i].FirstChild.FirstChild != null &&
 							elemList[i].FirstChild.FirstChild.Name == "divisions"
 						)
+					{
+						if (dataGridView1.Rows.Count == 0)
 						{
-							if (dataGridView1.Rows.Count == 0)
-							{
 							
-								XmlNodeList notes = elemList[i].SelectNodes("note");
-								for (int j = 0; j < notes.Count; j++)
-								{
+							XmlNodeList notes = elemList[i].SelectNodes("note");
+							for (int j = 0; j < notes.Count; j++)
+							{
 								
-									if (notes[j].FirstChild.Name == "rest")
+								if (notes[j].FirstChild.Name == "rest")
+								{
+									DataGridViewRow row = new DataGridViewRow();
+									dataGridView1.Rows.Add(row);
+									this.dataGridView1.Rows[0].Cells["node"].Value = "0";
+									this.dataGridView1.Rows[0].Cells["note"].Value = "0";
+
+									this.dataGridView1.Rows[0].Cells["divisions"].Value = elemList[i].FirstChild.FirstChild.InnerText;
+									string divisions = this.dataGridView1.Rows[0].Cells["divisions"].Value.ToString();
+									this.dataGridView1.Rows[0].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
+									this.dataGridView1.Rows[0].Cells["stt"].Value = "1";
+									this.dataGridView1.Rows[0].Cells["time"].Value = "0";
+									
+								}
+								else if (notes[j].FirstChild.Name == "pitch")
+								{
+									if (notes[j].FirstChild.FirstChild.NextSibling.Name == "alter")
 									{
 										DataGridViewRow row = new DataGridViewRow();
 										dataGridView1.Rows.Add(row);
-										this.dataGridView1.Rows[0].Cells["node"].Value = "0";
-										this.dataGridView1.Rows[0].Cells["note"].Value = "0";
+										this.dataGridView1.Rows[0].Cells["node"].Value = 
+											notes[j].FirstChild.FirstChild.InnerText + 
+											Convert.ToString( Convert.ToInt32(notes[j].FirstChild.LastChild.InnerText) - 2)+ "#";
+										string node = this.dataGridView1.Rows[0].Cells["node"].Value.ToString();
+										this.dataGridView1.Rows[0].Cells["note"].Value = Convert.ToString(CompareNote(node));
 
 										this.dataGridView1.Rows[0].Cells["divisions"].Value = elemList[i].FirstChild.FirstChild.InnerText;
 										string divisions = this.dataGridView1.Rows[0].Cells["divisions"].Value.ToString();
 										this.dataGridView1.Rows[0].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
 										this.dataGridView1.Rows[0].Cells["stt"].Value = "1";
 										this.dataGridView1.Rows[0].Cells["time"].Value = "0";
-									
 									}
-									else if (notes[j].FirstChild.Name == "pitch")
+									else if (notes[j].FirstChild.FirstChild.NextSibling.Name != "alter")
 									{
-										if (notes[j].FirstChild.FirstChild.NextSibling.Name == "alter")
-										{
-											DataGridViewRow row = new DataGridViewRow();
-											dataGridView1.Rows.Add(row);
-											this.dataGridView1.Rows[0].Cells["node"].Value = 
-												notes[j].FirstChild.FirstChild.InnerText + 
-												Convert.ToString( Convert.ToInt32(notes[j].FirstChild.LastChild.InnerText) - 2)+ "#";
-											string node = this.dataGridView1.Rows[0].Cells["node"].Value.ToString();
-											this.dataGridView1.Rows[0].Cells["note"].Value = Convert.ToString(CompareNote(node));
+										DataGridViewRow row = new DataGridViewRow();
+										dataGridView1.Rows.Add(row);
+										this.dataGridView1.Rows[0].Cells["node"].Value = 
+											notes[j].FirstChild.FirstChild.InnerText + 
+											Convert.ToString(Convert.ToInt32(notes[j].FirstChild.LastChild.InnerText) - 2);
+										string node = this.dataGridView1.Rows[0].Cells["node"].Value.ToString();
+										this.dataGridView1.Rows[0].Cells["note"].Value = Convert.ToString(CompareNote(node));
 
-											this.dataGridView1.Rows[0].Cells["divisions"].Value = elemList[i].FirstChild.FirstChild.InnerText;
-											string divisions = this.dataGridView1.Rows[0].Cells["divisions"].Value.ToString();
-											this.dataGridView1.Rows[0].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
-											this.dataGridView1.Rows[0].Cells["stt"].Value = "1";
-											this.dataGridView1.Rows[0].Cells["time"].Value = "0";
-										}
-										else if (notes[j].FirstChild.FirstChild.NextSibling.Name != "alter")
-										{
-											DataGridViewRow row = new DataGridViewRow();
-											dataGridView1.Rows.Add(row);
-											this.dataGridView1.Rows[0].Cells["node"].Value = 
-												notes[j].FirstChild.FirstChild.InnerText + 
-												Convert.ToString(Convert.ToInt32(notes[j].FirstChild.LastChild.InnerText) - 2);
-											string node = this.dataGridView1.Rows[0].Cells["node"].Value.ToString();
-											this.dataGridView1.Rows[0].Cells["note"].Value = Convert.ToString(CompareNote(node));
-
-											this.dataGridView1.Rows[0].Cells["divisions"].Value = elemList[i].FirstChild.FirstChild.InnerText;
-											string divisions = this.dataGridView1.Rows[0].Cells["divisions"].Value.ToString();
-											this.dataGridView1.Rows[0].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
-											this.dataGridView1.Rows[0].Cells["stt"].Value = "1";
-											this.dataGridView1.Rows[0].Cells["time"].Value = "0";
+										this.dataGridView1.Rows[0].Cells["divisions"].Value = elemList[i].FirstChild.FirstChild.InnerText;
+										string divisions = this.dataGridView1.Rows[0].Cells["divisions"].Value.ToString();
+										this.dataGridView1.Rows[0].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
+										this.dataGridView1.Rows[0].Cells["stt"].Value = "1";
+										this.dataGridView1.Rows[0].Cells["time"].Value = "0";
 										
-										}
+									}
 									
-									}
-									else
-									{
-										MessageBox.Show("Error!!! Please call Dev to fix bug!!!");
+								}
+								else
+								{
+									MessageBox.Show("Error!!! Please call Dev to fix bug!!!");
 
-									}
 								}
 							}
-							else if (dataGridView1.Rows.Count > 0)
+						}
+						else if (dataGridView1.Rows.Count > 0)
+						{
+							if (
+								dataGridView1.Rows[dataGridView1.Rows.Count - 2].Cells["time"].Value == null ||
+								dataGridView1.Rows[dataGridView1.Rows.Count - 2].Cells["_long"].Value == null
+							)
 							{
-								if (
-									dataGridView1.Rows[dataGridView1.Rows.Count - 2].Cells["time"].Value == null ||
-									dataGridView1.Rows[dataGridView1.Rows.Count - 2].Cells["_long"].Value == null
-								)
-								{
-									MessageBox.Show("Check Again Cell Values!!!");
-								}
+								MessageBox.Show("Check Again Cell Values!!!");
+							}
 
-								else if (
-									dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value != null ||
-									dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value != null ||
-									dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value != null
-									)
-								{
-									//textBox1.Text = dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value.ToString();
-									//Get value of column stt, time, _long in row before current row in run,
-									int stt = Convert.ToInt32(dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value.ToString());
-									double time = double.Parse(dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value.ToString());
-									double _long = double.Parse(dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value.ToString());
+							else if (
+								dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value != null ||
+								dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value != null ||
+								dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value != null
+								)
+							{
+								//textBox1.Text = dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value.ToString();
+								//Get value of column stt, time, _long in row before current row in run,
+								int stt = Convert.ToInt32(dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value.ToString());
+								double time = double.Parse(dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value.ToString());
+								double _long = double.Parse(dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value.ToString());
 								
-									XmlNodeList notes2 = elemList[i].SelectNodes("note");
-									for (int j = 0; j < notes2.Count; j++)
+								XmlNodeList notes2 = elemList[i].SelectNodes("note");
+								for (int j = 0; j < notes2.Count; j++)
+								{
+									if (notes2[j].FirstChild.Name == "rest")
 									{
-										if (notes2[j].FirstChild.Name == "rest")
+										dataGridView1.Rows.Insert(dataGridView1.Rows.Count);
+
+										this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value = "0";
+										this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["note"].Value = "0";
+
+										this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value = Convert.ToString(time + _long);
+
+										this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value = elemList[i].FirstChild.FirstChild.InnerText;
+										string divisions = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value.ToString();
+										this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
+
+										this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value = Convert.ToString(stt += 1);
+										
+									}
+									else if (notes2[j].FirstChild.Name == "pitch")
+									{
+										if (notes2[j].FirstChild.FirstChild.NextSibling.Name == "alter")
 										{
 											dataGridView1.Rows.Insert(dataGridView1.Rows.Count);
 
-											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value = "0";
-											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["note"].Value = "0";
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value =
+												notes2[j].FirstChild.FirstChild.InnerText +
+												Convert.ToString(Convert.ToInt32(notes2[j].FirstChild.LastChild.InnerText) - 2) + "#";
+											string node = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value.ToString();
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["note"].Value = Convert.ToString(CompareNote(node));
 
 											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value = Convert.ToString(time + _long);
 
@@ -488,109 +508,87 @@ namespace ToolXML
 											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
 
 											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value = Convert.ToString(stt += 1);
-										
 										}
-										else if (notes2[j].FirstChild.Name == "pitch")
+										else if (notes2[j].FirstChild.FirstChild.NextSibling.Name != "alter")
 										{
-											if (notes2[j].FirstChild.FirstChild.NextSibling.Name == "alter")
-											{
-												dataGridView1.Rows.Insert(dataGridView1.Rows.Count);
+											dataGridView1.Rows.Insert(dataGridView1.Rows.Count);
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value = 
+												notes2[j].FirstChild.FirstChild.InnerText + 
+												Convert.ToString(Convert.ToInt32(notes2[j].FirstChild.LastChild.InnerText) - 2);
+											string node = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value.ToString();
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["note"].Value = CompareNote(node);
 
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value =
-													notes2[j].FirstChild.FirstChild.InnerText +
-													Convert.ToString(Convert.ToInt32(notes2[j].FirstChild.LastChild.InnerText) - 2) + "#";
-												string node = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value.ToString();
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["note"].Value = Convert.ToString(CompareNote(node));
-
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value = Convert.ToString(time + _long);
-
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value = elemList[i].FirstChild.FirstChild.InnerText;
-												string divisions = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value.ToString();
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
-
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value = Convert.ToString(stt += 1);
-											}
-											else if (notes2[j].FirstChild.FirstChild.NextSibling.Name != "alter")
-											{
-												dataGridView1.Rows.Insert(dataGridView1.Rows.Count);
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value = 
-													notes2[j].FirstChild.FirstChild.InnerText + 
-													Convert.ToString(Convert.ToInt32(notes2[j].FirstChild.LastChild.InnerText) - 2);
-												string node = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value.ToString();
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["note"].Value = CompareNote(node);
-
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value = Convert.ToString(time + _long);
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value = elemList[i].FirstChild.FirstChild.InnerText;
-												string divisions = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value.ToString();
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value = Convert.ToString(stt += 1);
-											}
-										
-										
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value = Convert.ToString(time + _long);
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value = elemList[i].FirstChild.FirstChild.InnerText;
+											string divisions = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value.ToString();
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value = Convert.ToString(stt += 1);
 										}
-										else if (notes2[j].FirstChild.Name == "chord")
-										{
-											if (notes2[j].FirstChild.NextSibling.Name == "pitch" &&
-												notes2[j].FirstChild.NextSibling.FirstChild.NextSibling.Name == "alter")
-											{
-												dataGridView1.Rows.Insert(dataGridView1.Rows.Count);
-
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value = 
-													notes2[j].FirstChild.NextSibling.FirstChild.InnerText + 
-													Convert.ToString(Convert.ToInt32(notes2[j].FirstChild.NextSibling.LastChild.InnerText) - 2)  + "#";
-												string node = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value.ToString();
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["note"].Value = Convert.ToString(CompareNote(node));
-
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value = this.dataGridView1.Rows[dataGridView1.Rows.Count - 2].Cells["time"].Value;
-
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value = elemList[i].FirstChild.FirstChild.InnerText;
-												string divisions = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value.ToString();
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
-
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value = Convert.ToString(stt += 1);
-											}
-											else if (
-												notes2[j].FirstChild.NextSibling.Name == "pitch" &&
-												notes2[j].FirstChild.NextSibling.FirstChild.NextSibling.Name != "alter")
-											{
-												dataGridView1.Rows.Insert(dataGridView1.Rows.Count);
-
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value = 
-													notes2[j].FirstChild.NextSibling.FirstChild.InnerText + 
-													Convert.ToString(Convert.ToInt32(notes2[j].FirstChild.NextSibling.LastChild.InnerText) - 2);
-												string node = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value.ToString();
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["note"].Value = CompareNote(node);
-
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value = this.dataGridView1.Rows[dataGridView1.Rows.Count - 2].Cells["time"].Value;
-
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value = elemList[i].FirstChild.FirstChild.InnerText;
-												string divisions = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value.ToString();
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
-
-												this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value = Convert.ToString(stt += 1);
-											}
 										
 										
-										}
-										else
-										{
-											MessageBox.Show("Error!!! Please call Dev to fix bug!!!");
-
-										}
 									}
+									else if (notes2[j].FirstChild.Name == "chord")
+									{
+										if (notes2[j].FirstChild.NextSibling.Name == "pitch" &&
+											notes2[j].FirstChild.NextSibling.FirstChild.NextSibling.Name == "alter")
+										{
+											dataGridView1.Rows.Insert(dataGridView1.Rows.Count);
+
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value = 
+												notes2[j].FirstChild.NextSibling.FirstChild.InnerText + 
+												Convert.ToString(Convert.ToInt32(notes2[j].FirstChild.NextSibling.LastChild.InnerText) - 2)  + "#";
+											string node = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value.ToString();
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["note"].Value = Convert.ToString(CompareNote(node));
+
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value = this.dataGridView1.Rows[dataGridView1.Rows.Count - 2].Cells["time"].Value;
+
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value = elemList[i].FirstChild.FirstChild.InnerText;
+											string divisions = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value.ToString();
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
+
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value = Convert.ToString(stt += 1);
+										}
+										else if (
+											notes2[j].FirstChild.NextSibling.Name == "pitch" &&
+											notes2[j].FirstChild.NextSibling.FirstChild.NextSibling.Name != "alter")
+										{
+											dataGridView1.Rows.Insert(dataGridView1.Rows.Count);
+
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value = 
+												notes2[j].FirstChild.NextSibling.FirstChild.InnerText + 
+												Convert.ToString(Convert.ToInt32(notes2[j].FirstChild.NextSibling.LastChild.InnerText) - 2);
+											string node = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["node"].Value.ToString();
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["note"].Value = CompareNote(node);
+
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value = this.dataGridView1.Rows[dataGridView1.Rows.Count - 2].Cells["time"].Value;
+
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value = elemList[i].FirstChild.FirstChild.InnerText;
+											string divisions = this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["divisions"].Value.ToString();
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["_long"].Value = Convert.ToString(CompareLong(divisions));
+
+											this.dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value = Convert.ToString(stt += 1);
+										}
+										
+										
+									}
+									else
+									{
+										MessageBox.Show("Error!!! Please call Dev to fix bug!!!");
+
+									}
+								}
 							}
 
 						}
-						
-						}
-						//Trường hợp 2
-						else if 
-						(
+					}
+					//Trường hợp 2
+					else if (
 							elemList[i].FirstChild != null ||
 							elemList[i].FirstChild.Name == "note"
-						)
-						{
-							if (dataGridView1.Rows.Count == 0)
+							)
+					{
+
+						if (dataGridView1.Rows.Count == 0)
 						{
 
 							XmlNodeList notes = elemList[i].SelectNodes("note");
@@ -656,7 +654,7 @@ namespace ToolXML
 								}
 							}
 						}
-							else if (dataGridView1.Rows.Count > 0)
+						else if (dataGridView1.Rows.Count > 0)
 						{
 							if (dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["stt"].Value != null ||
 								dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["time"].Value != null ||
@@ -806,11 +804,12 @@ namespace ToolXML
 
 							}
 						}
-						}
-					
+					}
 				}
-				
+
 			}
+			this.KeyPreview = true;
+
 		}
 
 		private void label1_Click(object sender, EventArgs e)
